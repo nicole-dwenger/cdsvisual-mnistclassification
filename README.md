@@ -2,6 +2,7 @@
 # 4: Image Classification 
 
 > Classifying MNIST data using a Logistic Regression Classifier and a Neural Network Classifier. 
+
 > [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) |
 
 The purpose of this project was to evaluate and compare the performance of two classification models on the MNIST data. A Logistic Regression Classifier and a Neural Network classifier were trained on the MNIST data and evaluated. This direcotry contains two scripts, one for each classifier (`lr-mnist.py`, `nn-mnist.py`) and example output metrics in `out/`. Optionally, an  unseen image can be provided when running either of the script, to predict its label.
@@ -31,7 +32,7 @@ Logistic Regression script relies on the sklearn library, while the Neural Netwo
     |-- nn_mnist.py        # script for mnist classification using a shallow neural network
 
 |-- utils/                 # utility directory
-    |-- NeuralNetwork.py   # utility script with functions to define a neural network
+    |-- neuralnetwork.py   # utility script with functions to define a neural network
 
 |-- README.md
 |-- create_venv.sh         # bash script to create virtual environment
@@ -64,7 +65,7 @@ source venv_classification/bin/activate
 ### 2. Data
 The data used for this assignment is the full MNIST database, which contains 70,000 images of handwritten digits of size of 28x28 (784 features) is accessible [here](https://www.openml.org/d/554). These images and their corresponding labels are loaded directly in the scripts, meaning it is not necessary to retrieve any data beforehand. 
 
-### 3.1. Logistic Regression Classifier `lr-mnist.py`
+### 3.1. Logistic Regression Classifier: lr-mnist.py
 
 The logistic regression classifier can be trained on the MNIST data and evaluated running the script `lr-mnist.py`. The script should be called from the `scr/` directory. 
 
@@ -75,6 +76,14 @@ __Parameters__:
 - *-o, --output_filename : str, optional, default*: `lr_mnist`\
   Name of the output file containing perfromance metrics of the model, should end with .txt.
 
+__Output:__
+- *Performance metrics*\
+Printed to the command line and saved in directory called `out`, as `lr_metrics.txt` or specified output_filename. 
+
+- *Prediction of label of unseen image*\
+Printed to command line. 
+
+__Example:__
 ```bash
 # moving into src
 cd src/
@@ -86,14 +95,7 @@ python3 lr-mnist.py
 python3 lr-minst.py -u ../data/clf_test/test1.png
 ```
 
-__Output:__
-- *Performance metrics*\
-Printed to the command line and saved in directory called `out`, as `lr_metrics.txt` or specified output_filename. 
-
-- *Prediction of label of unseen image*\
-Printed to command line. 
-
-### 3.2. Neural Network Classifier `nn-mnist.py`
+### 3.2. Neural Network Classifier: nn-mnist.py
 
 The logistic regression classifier can be trained on the MNIST data and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, with 10 epochs. 
 
@@ -110,6 +112,16 @@ Number of epochs, note that increasing the number of epochs will increase proces
 - *-o, --output_filename : str, optional, default:*`nn_metrics.txt`\
   Name of the output file containing perfromance metrics of the model, should end with .txt.
 
+
+__Output:__
+The following output will be saved in a directory called `/out`. Examples can be found in `/out` in this repository.
+
+- *Performance metrics*\
+Classification report, printed to the command line and saved in directory called `out`, as `nn_metrics.txt` or specified output_filename. 
+- *Prediction of label of unseen image*\
+Printed to command line.   
+
+__Example:__
 ```bash
 # moving into src directory
 cd src/
@@ -120,14 +132,6 @@ python3 nn-mnist.py
 # running script with specified parameters
 python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
 ```
-
-__Output:__
-The following output will be saved in a directory called `/out`. Examples can be found in `/out` in this repository.
-
-- *Performance metrics*\
-Classification report, printed to the command line and saved in directory called `out`, as `nn_metrics.txt` or specified output_filename. 
-- *Prediction of label of unseen image*\
-Printed to command line.    
 
 
 ## Results and Discussion
