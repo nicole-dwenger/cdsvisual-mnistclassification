@@ -1,8 +1,7 @@
 
 # 4: Image Classification 
 
-> Classifying MNIST data using a Logistic Regression Classifier and a Neural Network Classifier. 
-
+> Classifying MNIST data using a Logistic Regression Classifier and a Neural Network Classifier.\ 
 > [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) |
 
 The purpose of this project was to evaluate and compare the performance of two classification models on the MNIST data. A Logistic Regression Classifier and a Neural Network classifier were trained on the MNIST data and evaluated. This direcotry contains two scripts, one for each classifier (`lr-mnist.py`, `nn-mnist.py`) and example output metrics in `out/`. Optionally, an  unseen image can be provided when running either of the script, to predict its label.
@@ -70,7 +69,7 @@ The data used for this assignment is the full MNIST database, which contains 70,
 The logistic regression classifier can be trained on the MNIST data and evaluated running the script `lr-mnist.py`. The script should be called from the `scr/` directory. 
 
 __Parameters__:
-- *-u, --unseen_image : str, optional, default: None\
+- *-u, --unseen_image : str, optional, default*: None\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`. 
 
 - *-o, --output_filename : str, optional, default*: `lr_mnist`\
@@ -106,7 +105,7 @@ __Parameters__:
 - *-e, --epochs : int, optional, default:*`10`\
 Number of epochs, note that increasing the number of epochs will increase processing time [Default: 10].
 
-- *-u, --unseen_image : str, optional, default:*`None`
+- *-u, --unseen_image : str, optional, default:*`None`\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`, e.g. `data/clf_test/test1.png`
 
 - *-o, --output_filename : str, optional, default:*`nn_metrics.txt`\
@@ -118,6 +117,7 @@ The following output will be saved in a directory called `/out`. Examples can be
 
 - *Performance metrics*\
 Classification report, printed to the command line and saved in directory called `out`, as `nn_metrics.txt` or specified output_filename. 
+
 - *Prediction of label of unseen image*\
 Printed to command line.   
 
