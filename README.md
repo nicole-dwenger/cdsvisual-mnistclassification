@@ -1,5 +1,5 @@
 
-# MNIST Classification using Logistic Regression and a Neural Network 
+# MNIST Classification Benchmarks 
 
 > [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) |
 
