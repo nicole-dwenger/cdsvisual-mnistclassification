@@ -1,7 +1,6 @@
 
-# 4: Image Classification 
+# MNIST Classification using Logistic Regression and a Neural Network 
 
-> Classifying MNIST data using a Logistic Regression Classifier and a Neural Network Classifier.\ 
 > [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) |
 
 The purpose of this project was to evaluate and compare the performance of two classification models on the MNIST data. A Logistic Regression Classifier and a Neural Network classifier were trained on the MNIST data and evaluated. This direcotry contains two scripts, one for each classifier (`lr-mnist.py`, `nn-mnist.py`) and example output metrics in `out/`. Optionally, an  unseen image can be provided when running either of the script, to predict its label.
@@ -103,7 +102,7 @@ __Parameters__:
   Definition of hidden layers, as a sequence of integers, separated with a space, e.g. 32 16. Input and output layer are defined   based on the training images and labels, for MNIST data the size of input layer is 784 and size of the output layer is 10. 
 
 - *-e, --epochs : int, optional, default:*`10`\
-Number of epochs, note that increasing the number of epochs will increase processing time [Default: 10].
+Number of epochs, note that increasing the number of epochs will increase processing time.
 
 - *-u, --unseen_image : str, optional, default:*`None`\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`, e.g. `data/clf_test/test1.png`
