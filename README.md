@@ -1,17 +1,20 @@
 
-# MNIST Classification Benchmarks 
+# Classification Benchmarks with MNIST
 
-> [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) |
+[Description](#description) | [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion)
 
-The purpose of this project was to evaluate and compare the performance of two classification models on the MNIST data. A Logistic Regression Classifier and a Neural Network classifier were trained on the MNIST data and evaluated. This direcotry contains two scripts, one for each classifier (`lr-mnist.py`, `nn-mnist.py`) and example output metrics in `out/`. Optionally, an  unseen image can be provided when running either of the script, to predict its label.
+## Description
+> This project is related to Assignment 4: Classification Benchmarks of the course Visual Analytics.
+
+The aim of this project was to compare the performance of two models on a simple classification task. Logistic Regression is a type of linear classification, meaning it assumes that classes can be separated using a linear function. However, when images become more complex, as in cultural image data, such linear functions may not be sufficient to classify images. Neural Network classifiers provide an alternative, as they are non-linear classifiers. To investigate and compare the performance of these two models, two command line scripts were developed to train and evaluate the performance of a Logistic Regression Classifier and a Neural Network Classifier on the MNIST dataset of handwritten digits. Both scripts have the additional functionality, that they can take an unseen image as input, for which the label is predicted after training the model.
 
 ## Methods
 
-Image classifcation it a unsupervised machine learning. This means, the model is trained, knowing the images and their labels.
-Logistic Regression is a type of linear classifcation, meaning that it assumes that classes can be separeted with a linear function. However, linear classifiers may fail when images become more complex. Neural networks are non-linear classifiers, and might perform better in classifying image data, as it uses a non-linear, complex function to classify images. 
+### Data and Preprocessing
+The data used in this project is the MNIST dataset, which contains 70000 images of dimensions of 28x28. All images were normalised and flattened to a 784 long vector. 80% of the images were used for training, while the remaining 20% were used as testing data. 
 
-Both classifiers are trained on 80% of the MNIST data and evaluated using the remaining 20%. All images are 28x28 pixels, which are normalised and flattened into a 748 long vector. 
-Logistic Regression script relies on the sklearn library, while the Neural Network script relies on a utility scipt, which manually defines a shallow neural network. 
+### Logistic Regression and Neural Network Classifier
+The Logistic Regression Classifier was run using no regularisation, and the saga algorithm. The Neural Network Classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
 
 ## Repository Structure
 
@@ -44,7 +47,7 @@ Logistic Regression script relies on the sklearn library, while the Neural Netwo
 
 ### 1. Cloning the Repository and Installing Dependencies
 
-To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.sh` can be used to create this virtual environment with all necessary dependencies, listed in the `requirements.txt` file. The following commands can be used:
+To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.s` can be used to create a virtual environment called venv_classification with all necessary dependencies, listed in the `requirements.tx` file The following commands can be used:
 
 ```bash
 # cloning the repository
@@ -61,18 +64,18 @@ source venv_classification/bin/activate
 ```
 
 ### 2. Data
-The data used for this assignment is the full MNIST database, which contains 70,000 images of handwritten digits of size of 28x28 (784 features) is accessible [here](https://www.openml.org/d/554). These images and their corresponding labels are loaded directly in the scripts, meaning it is not necessary to retrieve any data beforehand. 
+The images and labels of the MNIST database are loaded directory in the script, meaning it is not necessary to retrieve any data beforehand. 
 
 ### 3.1. Logistic Regression Classifier: lr-mnist.py
 
-The logistic regression classifier can be trained on the MNIST data and evaluated running the script `lr-mnist.py`. The script should be called from the `scr/` directory. 
+To run the Logistic Regression Classifier, the script `lr-mnist.py` should be run after moving into the src/ directory. 
 
 __Parameters__:
 - *-u, --unseen_image : str, optional, default*: None\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`. 
 
 - *-o, --output_filename : str, optional, default*: `lr_mnist`\
-  Name of the output file containing perfromance metrics of the model, should end with .txt.
+  Name of the output file containing performance metrics of the model, should end with .txt.
 
 __Output:__
 - *Performance metrics*\
@@ -108,7 +111,7 @@ Number of epochs, note that increasing the number of epochs will increase proces
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`, e.g. `data/clf_test/test1.png`
 
 - *-o, --output_filename : str, optional, default:*`nn_metrics.txt`\
-  Name of the output file containing perfromance metrics of the model, should end with .txt.
+  Name of the output file containing performance metrics of the model, should end with .txt.
 
 
 __Output:__
@@ -135,7 +138,7 @@ python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
 
 ## Results and Discussion
 
-Performance metrics of both models, run with their default parameters, indicate that the neural network classifier with a weighted F1 score of 0.96 performed better than the logistic regression classifier, with a weighted F1 score of 0.92. The F1 score is a combined measure of precision and recall, while the weighted F1 score also takes into account how often each class occurs in the data. 
+Performance metrics of both models, run with their default parameters, indicate that the neural network classifier with a weighted F1 score of 0.96 performed better than the logistic regression classifier, with a weighted F1 score of 0.92. The F1 score is a combined measure of precision and recall, while the weighted F1 score also takes into account how often each class occurs in the data. Thus, both models performed relatively well, while the Neural Network Classifier outperforms the Logistic Regression Classifier. The MNIST data is quite simple data, compare to e.g. paintings or cultural artefacts. Thus, more complex data could be relevant to further compare performance of the two models.  
 
-In relation to the scripts in this repository, it should be mentioned that the scripts are not very generalisable, as they are specifically targeted to the MNIST data. This is useful to create benchmarks of classifiers, but to use these classifiers for research purposes, they could be adjusted to take any set of images and labels. Using more complex data, rather than the MNIST data may also be relevant to further compare the two models.
+In relation to the scripts in this repository, it should be mentioned that the scripts are not very generalisable, as they are specifically targeted to the MNIST data. This is useful to create benchmarks of classifiers, but to use these classifiers for research purposes, they could be adjusted to take any set of images and labels.
 

@@ -5,7 +5,7 @@ Training a neural network classifier, printing and saving evalutation metrics.
 
 For MNIST data:
   - Download images and labels of the data
-  - Preprocess and regularise the data to be in an appropriate format
+  - Preprocess and normalise the data to be in an appropriate format
   - Train a neural network classifier using the training data
   - Evaluate performance of the classifier using the test data
   - Print performance metrics on command line and file 
@@ -114,7 +114,7 @@ def preprocess_data(X, Y, test_size):
     X = np.array(X.astype("float"))
     Y = np.array(Y)
     
-    # Scale images with min/max regularisation 
+    # Normalise images 
     X_scaled = (X - X.min())/(X.max() - X.min())
     
     # Binarise labels
@@ -131,10 +131,17 @@ class NN_Classifier:
     
     def __init__(self, hidden_layers, epochs):
         
-        # List of hidden layers
+        # Variables defined when initialising class
         self.hidden_layers = hidden_layers 
-        # Number of epochs
         self.epochs = epochs
+        
+        # Variables that will be defined throughout the functions
+        # Shape of NN
+        self.nn_shape = None
+        # Trained NN
+        self.nn_trained = None
+        # Classification report
+        self.nn_metrics = None
     
     def train_network(self, X_train, Y_train):
         """
@@ -200,8 +207,10 @@ class NN_Classifier:
         # Preprocessing it to be on gray scale and same size as MNIST data
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         resized_image = cv2.resize(gray_image, (28, 28), interpolation=cv2.INTER_AREA)
+        # Scale image as done to the MNIST data
+        scaled_image = (resized_image - resized_image.min())/(resized_image.max() - resized_image.min())
         # Flatten image to be in input format for neural network
-        flattened_image = resized_image.flatten()
+        flattened_image = scaled_image.flatten()
         
         # Predicting label 
         probabilities = self.nn_trained.predict(flattened_image)

@@ -1,9 +1,15 @@
 #!/usr/bin/python
+
 """
-Multilayered feedforward neural network
+Utility script for multilayered neural network class
+  - Taken and adjusted from class content
 """
-# import the necessary packages
+
+# LIBRARIES ------------------------------------
+
 import numpy as np
+
+# NN class ------------------------------------
 
 class NeuralNetwork:
     def __init__(self, layers, alpha=.1):

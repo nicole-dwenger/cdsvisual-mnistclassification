@@ -5,7 +5,7 @@ Training a logistic regression classifier, printing and saving evalutation metri
 
 For MNIST data:
   - Download images and labels of the data
-  - Preprocess and regularise the data
+  - Preprocess and normalise the data
   - Train a logistic regression classifier using the training data
   - Evaluate performance of the classifier using the test data
   - Print performance metrics on command line and file 
@@ -103,13 +103,14 @@ def preprocess_data(X, y, test_size):
     - Turn images (X) and labels (y) into arrays
     - Scale images using min/max regularisation
     - Split images and lables into test and train data, based on specified test_size
+    Returns: train and test images (X) and labels (y)
     """
     
     # Turn images (X) and labels (y) into an array for further processing
     X = np.array(X.astype("float"))
     y = np.array(y)
     
-    # Scale images with min/max regularisation 
+    # Normalise images
     X_scaled = (X - X.min())/(X.max() - X.min())
     
     # Split data into test and train data
@@ -125,9 +126,16 @@ class LR_Classifier:
         """
         Initialise logistic regression classifier with parameters
         """
+        # Variables defined when initialising
         self.penalty = penalty
         self.tolerance = tolerance
         self.solver = solver
+        
+        # Variables that will be defined when running functions
+        # Trained classifier
+        self.clf_trained = None
+        # Classification report
+        self.clf_metrics = None
 
     def train_classifier(self, X_train, y_train):
         """
