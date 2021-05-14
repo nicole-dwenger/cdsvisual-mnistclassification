@@ -81,14 +81,14 @@ python3 lr-minst.py -u ../data/clf_test/test1.png
 ```
 
 __Parameters__:
-- *`-u, --unseen_image`: str, optional, default*: `None`\
+- `-u, --unseen_image`: *str, optional, default:* `None`\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`. 
 
-- *`-o, --output_filename`: str, optional, default*: `lr_mnist.txt`\
+- `-o, --output_filename`: *str, optional, default:* `lr_mnist.txt`\
   Name of the output file containing performance metrics of the model, should end with .txt.
 
 __Output__ saved in `out/`:
-- *`lr_metrics.txt`, or specified output filename*\
+- `lr_metrics.txt`, *or specified output filename*\
   Classification report of logistic regression model. Also printed to command line
 
 - *Prediction of label of unseen image*\
@@ -111,22 +111,22 @@ python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
 ```
 
 __Parameters__:
-- *`-hl, --hidden-layers`: sequence of int, optional, default:* `32 16`\
+- `-hl, --hidden-layers`:* sequence of int, optional, default:* `32 16`\
   Definition of hidden layers, as a sequence of integers, separated with a space, e.g. 32 16. Input and output layer are defined   based on the training images and labels, for MNIST data the size of input layer is 784 and size of the output layer is 10. 
 
-- *`-e, --epochs`: int, optional, default:*`10`\
+- `-e, --epochs`:* int, optional, default:*`10`\
 Number of epochs, note that increasing the number of epochs will increase processing time.
 
-- *`-u, --unseen_image`: str, optional, default:*`None`\
+- `-u, --unseen_image`:* str, optional, default:*`None`\
   Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`, e.g. `data/clf_test/test1.png`
 
-- *`-o, --output_filename`: str, optional, default:*`nn_metrics.txt`\
+- `-o, --output_filename`:* str, optional, default:*`nn_metrics.txt`\
   Name of the output file containing performance metrics of the model, should end with .txt.
 
 
 __Output__ saved in `out`:
 
-- *`nn_metrics.txt` or speciied output_filename*\
+- `nn_metrics.txt`* or speciied output_filename*\
   Classification report of neural network classifier. Also printed to command line.
 
 - *Prediction of label of unseen image*\
