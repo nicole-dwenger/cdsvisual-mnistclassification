@@ -11,7 +11,7 @@ The aim of this project was to compare the performance of two models on a simple
 ## Methods
 
 ### Data and Preprocessing
-The data used in this project is the MNIST dataset, which contains 70000 images of dimensions of 28x28. All images were normalised and flattened to a 784 long vector. 80% of the images were used for training, while the remaining 20% were used as testing data. 
+The data used in this project is the MNIST dataset, which contains 70000 images of size 28x28. All images were normalised and flattened to a 784 long vector. 80% of the images were used for training, while the remaining 20% were used as testing data. 
 
 ### Logistic Regression and Neural Network Classifier
 The Logistic Regression Classifier was run using no regularisation, and the saga algorithm. The Neural Network Classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
@@ -47,7 +47,7 @@ The Logistic Regression Classifier was run using no regularisation, and the saga
 
 ### 1. Cloning the Repository and Installing Dependencies
 
-To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.s` can be used to create a virtual environment called venv_classification with all necessary dependencies, listed in the `requirements.tx` file The following commands can be used:
+To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.sh` can be used to create a virtual environment called venv_classification with all necessary dependencies, listed in the `requirements.txt` file The following commands can be used:
 
 ```bash
 # cloning the repository
@@ -67,24 +67,8 @@ source venv_classification/bin/activate
 The images and labels of the MNIST database are loaded directory in the script, meaning it is not necessary to retrieve any data beforehand. 
 
 ### 3.1. Logistic Regression Classifier: lr-mnist.py
+The Logistic Regression Classifier can be trained and evaluated using the script `lr-mnist.py`. This script should be called from the `src/` directory.
 
-To run the Logistic Regression Classifier, the script `lr-mnist.py` should be run after moving into the src/ directory. 
-
-__Parameters__:
-- *-u, --unseen_image : str, optional, default*: None\
-  Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`. 
-
-- *-o, --output_filename : str, optional, default*: `lr_mnist`\
-  Name of the output file containing performance metrics of the model, should end with .txt.
-
-__Output:__
-- *Performance metrics*\
-Printed to the command line and saved in directory called `out`, as `lr_metrics.txt` or specified output_filename. 
-
-- *Prediction of label of unseen image*\
-Printed to command line. 
-
-__Example:__
 ```bash
 # moving into src
 cd src/
@@ -96,9 +80,35 @@ python3 lr-mnist.py
 python3 lr-minst.py -u ../data/clf_test/test1.png
 ```
 
+__Parameters__:
+- *-u, --unseen_image : str, optional, default*: None\
+  Filepath to an unseen image, to generate prediction of its label. Example images are provided in `data/clf_test/`. 
+
+- *-o, --output_filename : str, optional, default*: `lr_mnist.txt`\
+  Name of the output file containing performance metrics of the model, should end with .txt.
+
+__Output:__ saved in `out/`:
+- *lr_metrics.txt, or specified output filename*\
+  Classification report of logistic regression model. Also printed to command line
+
+- *Prediction of label of unseen image*\
+  Printed to command line. 
+
+
 ### 3.2. Neural Network Classifier: nn-mnist.py
 
 The logistic regression classifier can be trained on the MNIST data and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, with 10 epochs. 
+
+```bash
+# moving into src directory
+cd src/
+
+# running script with default parameters
+python3 nn-mnist.py
+
+# running script with specified parameters
+python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
+```
 
 __Parameters__:
 - *-hl, --hidden-layers : sequence of int, optional, default:* `32 16`\
@@ -114,26 +124,13 @@ Number of epochs, note that increasing the number of epochs will increase proces
   Name of the output file containing performance metrics of the model, should end with .txt.
 
 
-__Output:__
-The following output will be saved in a directory called `/out`. Examples can be found in `/out` in this repository.
+__Output:__ saved in `out`:
 
-- *Performance metrics*\
-Classification report, printed to the command line and saved in directory called `out`, as `nn_metrics.txt` or specified output_filename. 
+- *nn_metrics.txt or speciied output_filename*\
+  Classification report of neural network classifier. Also printed to command line.
 
 - *Prediction of label of unseen image*\
-Printed to command line.   
-
-__Example:__
-```bash
-# moving into src directory
-cd src/
-
-# running script with default parameters
-python3 nn-mnist.py
-
-# running script with specified parameters
-python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
-```
+  Printed to command line.   
 
 
 ## Results and Discussion

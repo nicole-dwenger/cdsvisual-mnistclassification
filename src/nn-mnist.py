@@ -65,14 +65,14 @@ def main():
     output_filename = args["output_filename"]
     
     # Load MNIST data, X = images, Y = labels
-    print("[INFO] Getting MNIST data...")
+    print("\n[INFO] Getting MNIST data...")
     X, Y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
     # Preprocess and split MNIST data
     X_train, X_test, Y_train, Y_test = preprocess_data(X, Y, test_size=0.2)
     
     # Initliase neural network classifier class with parameters
-    print("[INFO] Initialising neural network ...")
+    print(f"[INFO] Initialising neural network with 784 {hidden_layers} 10.")
     nn = NN_Classifier(hidden_layers, epochs)
     
     # Training neural network classifier
@@ -96,7 +96,7 @@ def main():
         pass
     
     # Done
-    print(f"[INFO] All done, file with metrics saved in {output_directory}/{output_filename}")
+    print(f"[INFO] All done, file with metrics saved in {output_directory}/{output_filename}!")
 
     
 # HELPER FUNCTIONS AND NN CLASS ------------------------------------
@@ -157,7 +157,7 @@ class NN_Classifier:
         # Defining neural network from input shape - hidden layers - 10 output labels
         self.nn_trained = NeuralNetwork(self.nn_shape)
         # Fitting neural network on training data
-        self.nn_trained.fit(X_train, Y_train, epochs=self.epochs, displayUpdate=20)    
+        self.nn_trained.fit(X_train, Y_train, epochs=self.epochs, displayUpdate=1)    
     
     def evaluate_network(self, X_test, Y_test):
         """
