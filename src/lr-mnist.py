@@ -100,9 +100,9 @@ def main():
 def preprocess_data(X, y, test_size):
     """
     Preprocessing data for Classification:
-    - Turn images (X) and labels (y) into arrays
-    - Scale images using min/max regularisation
-    - Split images and lables into test and train data, based on specified test_size
+      - Turn images (X) and labels (y) into arrays
+      - Scale images using min/max regularisation
+      - Split images and lables into test and train data, based on specified test_size
     Returns: train and test images (X) and labels (y)
     """
     
@@ -140,8 +140,10 @@ class LR_Classifier:
     def train_classifier(self, X_train, y_train):
         """
         Training logistic-regression classifier
-        - X_train: Array of preprocessed training images
-        - y_train: Array of training labels
+        Input:
+          - X_train: Array of preprocessed training images
+          - y_train: Array of training labels
+        Appends clf.trained to self
         """
         self.clf_trained = LogisticRegression(penalty = self.penalty, 
                                               tol = self.tolerance, 
@@ -151,8 +153,10 @@ class LR_Classifier:
     def evaluate_classifier(self, X_test, y_test):
         """
         Evaluating performance of logistic-regression classifier based of predictions on the test data 
-        - X_train: Array of preprocessed test images
-        - y_train: Array of test labels
+        Input:
+          - X_train: Array of preprocessed test images
+          - y_train: Array of test labels
+        Appends clf.metrics to self
         """
         # Predict classes of test images
         predictions = self.clf_trained.predict(X_test)
@@ -168,8 +172,9 @@ class LR_Classifier:
     def save_metrics(self, output_directory, output_filename):
         """
         Saving performance metrics in txt file in defined output path
-        - Output directory: Directory to of where the file should be stored
-        - Output filename: Name of the file, should end with .txt
+        Input:
+          - Output directory: Directory to of where the file should be stored
+          - Output filename: Name of the file, should end with .txt
         """
         # Create output directory, if is does not exist already
         if not os.path.exists(output_directory):
@@ -185,8 +190,9 @@ class LR_Classifier:
     def predict_unseen(self, unseen_image, labels):
         """
         Predicting the label of an unseen image and printing it to command line
-        - Image path: Complete path to the unseen image, should be light number on dark background
-        - Lables: list of possible prediction labels, generated from MNIST data
+        Input:
+          - unseen_image: Complete path to the unseen image, should be light number on dark background
+          - labels: list of possible prediction labels, generated from MNIST data
         """
         # Reading unseen image
         image = cv2.imread(unseen_image)

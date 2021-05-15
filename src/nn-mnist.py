@@ -12,7 +12,7 @@ For MNIST data:
   - Optional: Predict class of an unseen image and print prediction, example images in ../data/clf_test/
 
 Input:
-  - -hl, --hidden_layers: list [hl1, hl2] (optional, default: [32,16]
+  - -hl, --hidden_layers: list [hl1, hl2] (optional, default: [32,16])
   - -e, --epochs: int n (optional, default: 10)
   - -u, --unseen_image: str <path-to-unseen-image> (optional, default: None) 
   - -o, --output_filename: str <filename> (optional, default: nn_metrics.txt)
@@ -64,22 +64,22 @@ def main():
     unseen_image = args["unseen_image"]
     output_filename = args["output_filename"]
     
-    # Load MNIST data, X = images, Y = labels
+    # Load MNIST data, X = images, y = labels
     print("\n[INFO] Getting MNIST data...")
-    X, Y = fetch_openml('mnist_784', version=1, return_X_y=True)
+    X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
     # Preprocess and split MNIST data
-    X_train, X_test, Y_train, Y_test = preprocess_data(X, Y, test_size=0.2)
+    X_train, X_test, y_train, y_test = preprocess_data(X, y, test_size=0.2)
     
     # Initliase neural network classifier class with parameters
     print(f"[INFO] Initialising neural network with 784 {hidden_layers} 10.")
     nn = NN_Classifier(hidden_layers, epochs)
     
     # Training neural network classifier
-    nn.train_network(X_train, Y_train)
+    nn.train_network(X_train, y_train)
     
     # Evaluating performance of neural network classifier
-    nn.evaluate_network(X_test, Y_test)
+    nn.evaluate_network(X_test, y_test)
     
     # Print performance metrics
     nn.print_metrics()
@@ -101,30 +101,30 @@ def main():
     
 # HELPER FUNCTIONS AND NN CLASS ------------------------------------
     
-def preprocess_data(X, Y, test_size):
+def preprocess_data(X, y, test_size):
     """
     Preprocessing data for Classification:
-    - Turn images (X) and labels (Y) into arrays
-    - Scale images using min/max regularisation
-    - Binarise labels 
-    - Split images and lables into test and train data, based on specified test_size
+      - Turn images (X) and labels (y) into arrays
+      - Scale images using min/max regularisation
+      - Binarise labels 
+      - Split images and lables into test and train data, based on specified test_size
     """
     
     # Turn images and labels into an array for further processing
     X = np.array(X.astype("float"))
-    Y = np.array(Y)
+    y = np.array(y)
     
     # Normalise images 
     X_scaled = (X - X.min())/(X.max() - X.min())
     
     # Binarise labels
-    Y_binarised = LabelBinarizer().fit_transform(Y)
+    y_binarised = LabelBinarizer().fit_transform(y)
     
     # Split data into test and train data
-    X_train, X_test, Y_train, Y_test = train_test_split(X_scaled, Y_binarised, random_state=9, test_size=test_size)
+    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_binarised, random_state=9, test_size=test_size)
     
     # Return images and labels
-    return X_train, X_test, Y_train, Y_test
+    return X_train, X_test, y_train, y_test
     
     
 class NN_Classifier:
@@ -143,34 +143,38 @@ class NN_Classifier:
         # Classification report
         self.nn_metrics = None
     
-    def train_network(self, X_train, Y_train):
+    def train_network(self, X_train, y_train):
         """
         Training network with hidden layers
-        - X_train: Array of preprocessed training images
-        - Y_train: Array of binarised training labels
+        Input:
+          - X_train: Array of preprocessed training images
+          - Y_train: Array of binarised training labels
+        Appends nn_trained to self
         """
         # Define shape of network 
         input_layer = int(X_train.shape[1])
-        output_layer = int(Y_train.shape[1])
+        output_layer = int(y_train.shape[1])
         self.nn_shape = [input_layer] + self.hidden_layers + [output_layer]
         
         # Defining neural network from input shape - hidden layers - 10 output labels
         self.nn_trained = NeuralNetwork(self.nn_shape)
         # Fitting neural network on training data
-        self.nn_trained.fit(X_train, Y_train, epochs=self.epochs, displayUpdate=1)    
+        self.nn_trained.fit(X_train, y_train, epochs=self.epochs, displayUpdate=1)    
     
-    def evaluate_network(self, X_test, Y_test):
+    def evaluate_network(self, X_test, y_test):
         """
         Evaluating network based on predictions of test labels
-        - X_test: Array of preprocessed test images
-        - Y_test: Array of binarised test labels
+        Input:
+          - X_test: Array of preprocessed test images
+          - y_test: Array of binarised test labels
+        Appends nn_metrics to self
         """
         # Predicting labels, getting max 
         predictions = self.nn_trained.predict(X_test)
         predictions = predictions.argmax(axis=1)
         
         # Getting classification report
-        self.nn_metrics = classification_report(Y_test.argmax(axis=1), predictions)
+        self.nn_metrics = classification_report(y_test.argmax(axis=1), predictions)
         
     def print_metrics(self):
         """
@@ -181,8 +185,9 @@ class NN_Classifier:
     def save_metrics(self, output_directory, output_filename):
         """
         Saving performance metrics in txt file in defined output path
-        - Output directory: Directory to of where the file should be stored
-        - Output filename: Name of the file, should end with .txt
+        Input:
+          - Output directory: Directory to of where the file should be stored
+          - Output filename: Name of the file, should end with .txt
         """
         # Create output directory, if is does not exist already
         if not os.path.exists(output_directory):
@@ -198,8 +203,8 @@ class NN_Classifier:
     def predict_unseen(self, unseen_image):
         """
         Predicting the label of an unseen image and printing it to command line
-        - Image path: Complete path to the unseen image, should be light number on dark background
-        - Lables: list of possible prediction labels, generated from MNIST data
+        Input:
+        - unseen image: Complete path to the unseen image, should be light number on dark background
         """
         # Reading unseen image
         image = cv2.imread(unseen_image)
