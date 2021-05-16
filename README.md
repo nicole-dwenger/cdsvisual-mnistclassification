@@ -77,7 +77,7 @@ cd src/
 python3 lr-mnist.py
 
 # running script with specified parameters
-python3 lr-minst.py -u ../data/clf_test/test1.png
+python3 lr-mnist.py -u ../data/clf_test/test1.png
 ```
 
 __Parameters__:
