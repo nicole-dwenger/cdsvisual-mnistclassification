@@ -107,7 +107,7 @@ cd src/
 python3 nn-mnist.py
 
 # running script with specified parameters
-python3 nn-minst.py -hl 64 16 -u ../data/clf_test/test1.png
+python3 nn-mnist.py -hl 64 16 -u ../data/clf_test/test1.png
 ```
 
 __Parameters__:
