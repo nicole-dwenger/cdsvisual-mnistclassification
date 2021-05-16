@@ -62,10 +62,10 @@ def main():
     print("[INFO] Getting MNIST data...")
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
-    # Preprocess and split MNIST data
+    # Preprocess and split MNIST data (normalises images, binarises labels)
     X_train, X_test, y_train, y_test = preprocess_data(X, y, test_size=0.2)
     
-    # Initliase logitistic regression classifier class with parameters
+    # Initliase logitistic regression classifier class
     print("[INFO] Initialising logistic regression classifier...")
     clf = LR_Classifier(penalty="none", tolerance=0.1, solver="saga")
     
@@ -78,7 +78,7 @@ def main():
     # Print performance
     clf.print_metrics()
     
-    # Save performance
+    # Define output directory, and save metrics (this also creates the output directory)
     output_directory = os.path.join("..", "out")
     clf.save_metrics(output_directory, output_filename)
     
@@ -110,7 +110,7 @@ def preprocess_data(X, y, test_size):
     X = np.array(X.astype("float"))
     y = np.array(y)
     
-    # Normalise images
+    # Normalise images using min max regularisation
     X_scaled = (X - X.min())/(X.max() - X.min())
     
     # Split data into test and train data
@@ -202,9 +202,11 @@ class LR_Classifier:
         resized_image = cv2.resize(gray_image, (28, 28), interpolation=cv2.INTER_AREA)
         scaled_image = (resized_image - resized_image.min())/(resized_image.max() - resized_image.min())
         
-        # Generating propalities of labels and printing label with max probability
+        # Generating propalities of labels
         probabilities = self.clf_trained.predict_proba(scaled_image.reshape(1,784))
+        # Getting label index with max probability
         label_index = np.argmax(probabilities)
+        # Getting label corresponding to the index
         label = labels[label_index]
         
         # Printing prediction

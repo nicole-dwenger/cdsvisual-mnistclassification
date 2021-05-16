@@ -68,7 +68,7 @@ def main():
     print("\n[INFO] Getting MNIST data...")
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
-    # Preprocess and split MNIST data
+    # Preprocess and split MNIST data (this also normalises images and binarises labels)
     X_train, X_test, y_train, y_test = preprocess_data(X, y, test_size=0.2)
     
     # Initliase neural network classifier class with parameters
@@ -84,7 +84,7 @@ def main():
     # Print performance metrics
     nn.print_metrics()
      
-    # Save performance metrics
+    # Define output directory and save metrics in output directory
     output_directory = os.path.join("..", "out")
     nn.save_metrics(output_directory, output_filename)
     
@@ -114,7 +114,7 @@ def preprocess_data(X, y, test_size):
     X = np.array(X.astype("float"))
     y = np.array(y)
     
-    # Normalise images 
+    # Normalise images using min max regularisation
     X_scaled = (X - X.min())/(X.max() - X.min())
     
     # Binarise labels
