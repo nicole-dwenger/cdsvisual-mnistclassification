@@ -6,7 +6,7 @@
 ## Description
 > This project is related to Assignment 4: Classification Benchmarks of the course Visual Analytics.
 
-This project aimed to compare the performance of two models on a simple classification task. Logistic Regression is a type of linear classification, meaning it assumes that classes can be separated using a linear function. However, when images become more complex, as in cultural image data, such linear functions may not be sufficient to classify images. Neural Network classifiers provide an alternative, as they are non-linear classifiers. To investigate and compare the performance of these two models, two command line scripts were developed to train and evaluate the performance of a Logistic Regression Classifier and a Neural Network Classifier on the MNIST dataset of handwritten digits. Both scripts have the additional functionality, that they can take an unseen image as input, for which the label is predicted after training the model.
+This project aimed to compare the performance of two models on a simple classification task. Logistic regression is a type of linear classification, meaning it assumes that classes can be separated using a linear function. However, when images become more complex, as in cultural image data, such linear functions may not be sufficient to classify images. Neural network classifiers provide an alternative, as they are non-linear classifiers. To investigate and compare the performance of these two models, two command line scripts were developed to train and evaluate the performance of a logistic regression classifier and a neural network classifier on the MNIST dataset of handwritten digits. Both scripts have the additional functionality, that they can take an unseen image as input, for which the label is predicted after training the model.
 
 ## Methods
 
@@ -14,7 +14,7 @@ This project aimed to compare the performance of two models on a simple classifi
 The data used in this project is the MNIST dataset, which contains 70000 images of dimensions of 28x28. All images were normalised and flattened to a 784 long vector. All images were scaled using min-max-regularisation and 80% of the images were used for training, while the remaining 20% were used as testing data. 
 
 ### Logistic Regression and Neural Network Classifier
-The Logistic Regression Classifier was run using no regularisation, and the saga algorithm. The Neural Network Classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
+The Logistic regression classifier was run using no regularisation, and the saga algorithm. The neural network classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
 
 ## Repository Structure
 
@@ -67,7 +67,7 @@ source venv_classification/bin/activate
 The images and labels of the MNIST database are loaded directory in the script, meaning it is not necessary to retrieve any data beforehand. 
 
 ### 3.1. Logistic Regression Classifier: lr-mnist.py
-The Logistic Regression Classifier can be trained and evaluated using the script `lr-mnist.py`. This script should be called from the `src/` directory:
+The logistic regression classifier can be trained and evaluated using the script `lr-mnist.py`. This script should be called from the `src/` directory:
 
 ```bash
 # moving into src
@@ -97,7 +97,7 @@ __Output__ saved in `out/`:
 
 ### 3.2. Neural Network Classifier: nn-mnist.py
 
-The logistic regression classifier can be trained on the MNIST data and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, with 10 epochs. 
+The neural network classifier can be trained and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, with 10 epochs. 
 
 ```bash
 # moving into src directory
@@ -135,7 +135,7 @@ __Output__ saved in `out`:
 
 ## Results and Discussion
 
-Performance metrics of both models ([logistic regression](https://github.com/nicole-dwenger/cdsvisual-mnistclassification/blob/master/out/lr_metrics.txt), [neural network](https://github.com/nicole-dwenger/cdsvisual-mnistclassification/blob/master/out/nn_metrics.txt)), run with their default parameters, indicated that the neural network classifier with a weighted F1 score of 0.96 performed better than the logistic regression classifier, with a weighted F1 score of 0.92. The F1 score is a combined measure of precision and recall, while the weighted F1 score also takes into account how often each class occurs in the data. Thus, both models performed relatively well, while the Neural Network Classifier outperforms the Logistic Regression Classifier. The MNIST data is quite simple data, compare to e.g. paintings or cultural artefacts. Thus, more complex data could be relevant to further compare performance of the two models.
+Performance metrics of both models ([logistic regression](https://github.com/nicole-dwenger/cdsvisual-mnistclassification/blob/master/out/lr_metrics.txt), [neural network](https://github.com/nicole-dwenger/cdsvisual-mnistclassification/blob/master/out/nn_metrics.txt)), run with their default parameters, indicated that the neural network classifier with a weighted F1 score of 0.96 performed better than the logistic regression classifier, with a weighted F1 score of 0.92. The F1 score is a combined measure of precision and recall, while the weighted F1 score also takes into account how often each class occurs in the data. Thus, both models performed relatively well, while the neural network classifier outperforms the logistic regression classifier. The MNIST data is quite simple data, compare to e.g. paintings or cultural artefacts. Thus, more complex data could be relevant to further compare performance of the two models.
 
 In relation to the scripts in this repository, it should be mentioned that the scripts are not very generalisable, as they are specifically targeted to the MNIST data. This is useful to create benchmarks of classifiers, but to use these classifiers for research purposes, they could be adjusted to take any set of images and labels.
 
