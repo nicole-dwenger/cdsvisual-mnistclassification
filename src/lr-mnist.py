@@ -63,10 +63,10 @@ def main():
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
     # Preprocess and split MNIST data (normalises images, binarises labels)
-    X_train, X_test, y_train, y_test = preprocess_data(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
     
     # Initliase logitistic regression classifier class
-    print("[INFO] Initialising logistic regression classifier...")
+    print("\n[INFO] Initialising logistic regression classifier...")
     clf = LR_Classifier(penalty="none", tolerance=0.1, solver="saga")
     
     # Training classifier
@@ -97,9 +97,9 @@ def main():
         
 # HELPER FUNCTIONS AND LR CLASS ------------------------------------
 
-def preprocess_data(X, y, test_size):
+def prepare_data(X, y, test_size):
     """
-    Preprocessing data for Classification:
+    Preprocessing data for LR classification:
       - Turn images (X) and labels (y) into arrays
       - Scale images using min/max regularisation
       - Split images and lables into test and train data, based on specified test_size

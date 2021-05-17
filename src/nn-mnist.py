@@ -69,7 +69,7 @@ def main():
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
     # Preprocess and split MNIST data (this also normalises images and binarises labels)
-    X_train, X_test, y_train, y_test = preprocess_data(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
     
     # Initliase neural network classifier class with parameters
     print(f"[INFO] Initialising neural network with 784 {hidden_layers} 10.")
@@ -101,9 +101,9 @@ def main():
     
 # HELPER FUNCTIONS AND NN CLASS ------------------------------------
     
-def preprocess_data(X, y, test_size):
+def prepare_data(X, y, test_size):
     """
-    Preprocessing data for Classification:
+    Preprocessing data for NN classification:
       - Turn images (X) and labels (y) into arrays
       - Scale images using min/max regularisation
       - Binarise labels 
