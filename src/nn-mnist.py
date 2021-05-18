@@ -44,62 +44,7 @@ from sklearn.metrics import classification_report
 from sklearn import datasets
 
 
-# MAIN FUNCTION ------------------------------------
-
-def main(): 
-    
-    # Initialise argument parser for output filename
-    ap = argparse.ArgumentParser()
-    
-    # Input option for unseen image to predict label
-    ap.add_argument("-hl", "--hidden_layers", help="List of hidden layers", nargs="*",type=int, default = [32,16])
-    ap.add_argument("-e", "--epochs", help="Number of epochs", type=int, default = 10)
-    ap.add_argument("-u", "--unseen_image", help="Path to unseen image", default=None)
-    ap.add_argument("-o", "--output_filename", help="Name of the output file of metrics", default="nn_metrics.txt")
-    
-    # Extract input argument for output filename
-    args = vars(ap.parse_args())
-    hidden_layers = args["hidden_layers"]
-    epochs = args["epochs"]
-    unseen_image = args["unseen_image"]
-    output_filename = args["output_filename"]
-    
-    # Load MNIST data, X = images, y = labels
-    print("\n[INFO] Getting MNIST data...")
-    X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
-    
-    # Preprocess and split MNIST data (this also normalises images and binarises labels)
-    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
-    
-    # Initliase neural network classifier class with parameters
-    print(f"[INFO] Initialising neural network with 784 {hidden_layers} 10.")
-    nn = NN_Classifier(hidden_layers, epochs)
-    
-    # Training neural network classifier
-    nn.train_network(X_train, y_train)
-    
-    # Evaluating performance of neural network classifier
-    nn.evaluate_network(X_test, y_test)
-    
-    # Print performance metrics
-    nn.print_metrics()
-     
-    # Define output directory and save metrics in output directory
-    output_directory = os.path.join("..", "out")
-    nn.save_metrics(output_directory, output_filename)
-    
-    # If an unseen image was provided in the input, predict its class and print prediction 
-    if unseen_image != None:
-        # Predicting unseen image
-        nn.predict_unseen(unseen_image) 
-    else:
-        pass
-    
-    # Done
-    print(f"[INFO] All done, file with metrics saved in {output_directory}/{output_filename}!")
-
-    
-# HELPER FUNCTIONS AND NN CLASS ------------------------------------
+# HELPER FUNCTION AND NN CLASS ------------------------------------
     
 def prepare_data(X, y, test_size):
     """
@@ -126,7 +71,6 @@ def prepare_data(X, y, test_size):
     # Return images and labels
     return X_train, X_test, y_train, y_test
     
-    
 class NN_Classifier:
     
     def __init__(self, hidden_layers, epochs):
@@ -151,9 +95,11 @@ class NN_Classifier:
           - Y_train: Array of binarised training labels
         Appends nn_trained to self
         """
-        # Define shape of network 
+        # Define size of input layer: size of images 
         input_layer = int(X_train.shape[1])
+        # Define size of output layer: number of labels
         output_layer = int(y_train.shape[1])
+        # Define nn shape with input, hidden and output layers
         self.nn_shape = [input_layer] + self.hidden_layers + [output_layer]
         
         # Defining neural network from input shape - hidden layers - 10 output labels
@@ -209,8 +155,9 @@ class NN_Classifier:
         # Reading unseen image
         image = cv2.imread(unseen_image)
         
-        # Preprocessing it to be on gray scale and same size as MNIST data
+        # Preprocessing it to be on gray scale
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # Resize image to be same size as MNIST data
         resized_image = cv2.resize(gray_image, (28, 28), interpolation=cv2.INTER_AREA)
         # Scale image as done to the MNIST data
         scaled_image = (resized_image - resized_image.min())/(resized_image.max() - resized_image.min())
@@ -224,6 +171,62 @@ class NN_Classifier:
         
         # Printing prediction
         print(f"[OUTPUT] The image {unseen_image} is most likely a {prediction}.")
+
+
+# MAIN FUNCTION ------------------------------------
+
+def main(): 
+    
+    # Initialise argument parser for output filename
+    ap = argparse.ArgumentParser()
+    
+    # Input option for unseen image to predict label
+    ap.add_argument("-hl", "--hidden_layers", help="List of hidden layers", nargs="*",type=int, default = [32,16])
+    ap.add_argument("-e", "--epochs", help="Number of epochs", type=int, default = 10)
+    ap.add_argument("-u", "--unseen_image", help="Path to unseen image", default=None)
+    ap.add_argument("-o", "--output_filename", help="Name of the output file of metrics", default="nn_metrics.txt")
+    
+    # Extract input argument for output filename
+    args = vars(ap.parse_args())
+    hidden_layers = args["hidden_layers"]
+    epochs = args["epochs"]
+    unseen_image = args["unseen_image"]
+    output_filename = args["output_filename"]
+    
+    # Load MNIST data, X = images, y = labels
+    print("\n[INFO] Getting MNIST data...")
+    X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
+    
+    # Preprocess and split MNIST data (this also normalises images and binarises labels)
+    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
+    
+    # Initliase neural network classifier class with parameters
+    print(f"[INFO] Initialising neural network with 784 {hidden_layers} 10.")
+    nn = NN_Classifier(hidden_layers, epochs)
+    
+    # Train neural network classifier
+    nn.train_network(X_train, y_train)
+    
+    # Evaluate performance of neural network classifier
+    nn.evaluate_network(X_test, y_test)
+    
+    # Print classification report
+    nn.print_metrics()
+     
+    # Define output directory
+    output_directory = os.path.join("..", "out")
+    # Save metrics in output directory (this also creates the output directory)
+    nn.save_metrics(output_directory, output_filename)
+    
+    # If an unseen image was provided in the input, predict its class and print prediction 
+    if unseen_image != None:
+        # Predicting unseen image
+        nn.predict_unseen(unseen_image) 
+    else:
+        pass
+    
+    # Done
+    print(f"[INFO] All done, file with metrics saved in {output_directory}/{output_filename}!")
 
                     
 if __name__=="__main__":

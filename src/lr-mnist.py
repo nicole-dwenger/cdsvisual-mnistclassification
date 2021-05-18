@@ -38,64 +38,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 
-# MAIN FUNCTION ------------------------------------
-
-def main(): 
-    
-    # Initialise argument parser
-    ap = argparse.ArgumentParser()
-    
-    # Input option for unseen image to predict label
-    ap.add_argument("-u", "--unseen_image", help="Path to unseen image", type=str,
-                    required=False, default=None)
-    
-    # Input option for output filename
-    ap.add_argument("-o", "--output_filename", help="Name of the output file of metrics", type=str,
-                    required=False, default="lr_metrics.txt")
-    
-    # Extract input arguments
-    args = vars(ap.parse_args())
-    unseen_image = args["unseen_image"]
-    output_filename = args["output_filename"]
-    
-    # Load MNIST data, X = images, y = labels
-    print("[INFO] Getting MNIST data...")
-    X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
-    
-    # Preprocess and split MNIST data (normalises images, binarises labels)
-    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
-    
-    # Initliase logitistic regression classifier class
-    print("\n[INFO] Initialising logistic regression classifier...")
-    clf = LR_Classifier(penalty="none", tolerance=0.1, solver="saga")
-    
-    # Training classifier
-    clf.train_classifier(X_train, y_train)
-    
-    # Evaluating performance of classifier 
-    clf.evaluate_classifier(X_test, y_test)
-    
-    # Print performance
-    clf.print_metrics()
-    
-    # Define output directory, and save metrics (this also creates the output directory)
-    output_directory = os.path.join("..", "out")
-    clf.save_metrics(output_directory, output_filename)
-    
-    # If an unseen image was provided in the input, predict its class and print prediction 
-    if unseen_image != None:
-        # Getting unqiue labels of the data, necessary for prediction
-        labels = sorted(set(y))
-        # Predicting the label of the unseeen image
-        clf.predict_unseen(unseen_image, labels) 
-    else:
-        pass
-    
-    # Done
-    print(f"\n[INFO] All done, file with metrics saved in {output_directory}/{output_filename}")
-            
-        
-# HELPER FUNCTIONS AND LR CLASS ------------------------------------
+# HELPER FUNCTION AND LR CLASS ------------------------------------
 
 def prepare_data(X, y, test_size):
     """
@@ -118,7 +61,6 @@ def prepare_data(X, y, test_size):
     
     # Return images and labels
     return X_train, X_test, y_train, y_test
-
 
 class LR_Classifier:
     
@@ -211,6 +153,64 @@ class LR_Classifier:
         
         # Printing prediction
         print(f"[OUTPUT] The image {unseen_image} is most likely a {label}.")
+
+
+# MAIN FUNCTION ------------------------------------
+
+def main(): 
+    
+    # Initialise argument parser
+    ap = argparse.ArgumentParser()
+    
+    # Input option for unseen image to predict label
+    ap.add_argument("-u", "--unseen_image", help="Path to unseen image", type=str,
+                    required=False, default=None)
+    
+    # Input option for output filename
+    ap.add_argument("-o", "--output_filename", help="Name of the output file of metrics", type=str,
+                    required=False, default="lr_metrics.txt")
+    
+    # Extract input arguments
+    args = vars(ap.parse_args())
+    unseen_image = args["unseen_image"]
+    output_filename = args["output_filename"]
+    
+    # Load MNIST data, X = images, y = labels
+    print("[INFO] Getting MNIST data...")
+    X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
+    
+    # Preprocess and split MNIST data (normalises images, binarises labels)
+    X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
+    
+    # Initliase logitistic regression classifier class
+    print("\n[INFO] Initialising logistic regression classifier...")
+    clf = LR_Classifier(penalty="none", tolerance=0.1, solver="saga")
+    
+    # Train classifier
+    clf.train_classifier(X_train, y_train)
+    
+    # Evaluating performance of classifier 
+    clf.evaluate_classifier(X_test, y_test)
+    
+    # Print classification report
+    clf.print_metrics()
+    
+    # Define output directory
+    output_directory = os.path.join("..", "out")
+    # Save metrics (this also creates the output directory)
+    clf.save_metrics(output_directory, output_filename)
+    
+    # If an unseen image was provided in the input, predict its class and print prediction 
+    if unseen_image != None:
+        # Getting unqiue labels of the data, necessary for prediction
+        labels = sorted(set(y))
+        # Predicting the label of the unseeen image
+        clf.predict_unseen(unseen_image, labels) 
+    else:
+        pass
+    
+    # Print message, done
+    print(f"\n[INFO] All done, file with metrics saved in {output_directory}/{output_filename}")
 
         
 if __name__=="__main__":
