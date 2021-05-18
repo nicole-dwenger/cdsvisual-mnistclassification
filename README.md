@@ -47,7 +47,7 @@ The Logistic regression classifier was run using no regularisation, and the saga
 
 ### 1. Cloning the Repository and Installing Dependencies
 
-To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.sh` can be used to create a virtual environment called venv_classification with all necessary dependencies, listed in the `requirements.txt` file The following commands can be used:
+To run the scripts, I recommend cloning this repository and installing necessary dependencies in a virtual environment. The bash script `create_venv.sh` can be used to create a virtual environment called `venv_classification` with all necessary dependencies, listed in the `requirements.txt` file The following commands can be used:
 
 ```bash
 # cloning the repository
@@ -97,7 +97,7 @@ __Output__ saved in `out/`:
 
 ### 3.2. Neural Network Classifier: nn-mnist.py
 
-The neural network classifier can be trained and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, with 10 epochs. 
+The neural network classifier can be trained and evaluated running the script `nn-mnist.py`. The script should be called from the `src/` directory. By default, the network is trained with a layer structure of 784-32-16-10, over 10 epochs. 
 
 ```bash
 # moving into src directory
@@ -124,7 +124,7 @@ Number of epochs, note that increasing the number of epochs will increase proces
   Name of the output file containing performance metrics of the model, should end with .txt.
 
 
-__Output__ saved in `out`:
+__Output__ saved in `out/`:
 
 - `nn_metrics.txt` *or specified output_filename*\
   Classification report of neural network classifier. Also printed to command line.

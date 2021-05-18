@@ -176,14 +176,14 @@ def main():
     output_filename = args["output_filename"]
     
     # Load MNIST data, X = images, y = labels
-    print("[INFO] Getting MNIST data...")
+    print("\n[INFO] Getting MNIST data...")
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
     
     # Preprocess and split MNIST data (normalises images, binarises labels)
     X_train, X_test, y_train, y_test = prepare_data(X, y, test_size=0.2)
     
     # Initliase logitistic regression classifier class
-    print("\n[INFO] Initialising logistic regression classifier...")
+    print("[INFO] Initialising logistic regression classifier...")
     clf = LR_Classifier(penalty="none", tolerance=0.1, solver="saga")
     
     # Train classifier
@@ -210,7 +210,7 @@ def main():
         pass
     
     # Print message, done
-    print(f"\n[INFO] All done, file with metrics saved in {output_directory}/{output_filename}")
+    print(f"[INFO] All done, file with metrics saved in {output_directory}/{output_filename}\n")
 
         
 if __name__=="__main__":
