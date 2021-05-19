@@ -1,7 +1,7 @@
 
 # Classification Benchmarks with MNIST
 
-[Description](#description) | [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion)
+[Description](#description) | [Methods](#methods) | [Repository Structure](#repository-structure) | [Usage](#usage) | [Results and Disucssion](#results-and-discussion) | [Contact](#contact)
 
 ## Description
 > This project is related to Assignment 4: Classification Benchmarks of the course Visual Analytics.
@@ -139,3 +139,7 @@ Performance metrics of both models ([logistic regression](https://github.com/nic
 In relation to the scripts in this repository, it should be mentioned that the scripts are not very generalisable, as they are specifically targeted to the MNIST data. This is useful to create benchmarks of classifiers, but to use these classifiers for research purposes, they could be adjusted to take any set of images and labels.
 
 Further, the image which can be provided as an unseen image should still be a white number on a black background, and centred in the image. This is not very generalisable, and the script could be adjusted to also be predict the label of images which do not follow this format. 
+
+
+## Contact
+If you have any questions, feel free to contact me at 201805351@post.au.dk.
