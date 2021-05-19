@@ -14,7 +14,7 @@ This project aimed to compare the performance of two models on a simple classifi
 The data used in this project is the MNIST dataset, which contains 70000 images of dimensions of 28x28 (784 features). All images were scaled using min-max-regularisation and split into 80% training and 20% test data. 
 
 ### Logistic Regression and Neural Network Classifier
-The Logistic regression classifier was run using no regularisation, and the saga algorithm. The neural network classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
+The logistic regression classifier was run using no regularisation, and the saga algorithm. The neural network classifier was trained using a layer architecture of 784-32-16-10 and was trained for 10 epochs. 
 
 ## Repository Structure
 
