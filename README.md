@@ -63,6 +63,16 @@ bash create_venv.sh
 source venv_classification/bin/activate
 ```
 
+If you run into any issues when installing packages from the `requirements.txt`, you can also install/uninstall packages manually in the activated environment, using the following commands:
+
+```bash
+# example: install pandas
+pip install pandas
+
+# example: uninstall pandas
+pip uninstall pandas
+```
+
 ### 2. Data
 The images and labels of the MNIST database are loaded directly from [openml](https://www.openml.org/d/554) in the script, meaning it is not necessary to retrieve any data beforehand. 
 
